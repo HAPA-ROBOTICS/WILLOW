@@ -28,7 +28,7 @@ static void _set_all_servo_int_position(void){
     vTaskDelay(pdMS_TO_TICKS(25)); 
 }
 
-void _forward(void) {
+void _forward_walk(void) {
     for (int i = 0; i < _GAIT_STEPS; i++) {
         iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _forward_gait[i][0]);
         iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _forward_gait[i][1]);
@@ -42,7 +42,25 @@ void _forward(void) {
     }
 }
 
-void _backward(void) {
+void _forward_walk_slow(void){
+    for (int i = 0; i < _GAIT_STEPS; i++) {
+        iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _forward_gait_test[i][0]);
+        iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _forward_gait_test[i][1]);
+        
+        iot_servo_write_angle(S1_CHAN_SPEED, BACK_RT_CHAN,  _forward_gait_test[i][2]);
+        iot_servo_write_angle(S2_CHAN_SPEED, BACK_RT_CHAN,  _forward_gait_test[i][3]);
+        
+        iot_servo_write_angle(S2_CHAN_SPEED, FRONT_LT_CHAN, _forward_gait_test[i][4]);
+        iot_servo_write_angle(S1_CHAN_SPEED, FRONT_LT_CHAN, _forward_gait_test[i][5]);
+        
+        iot_servo_write_angle(S1_CHAN_SPEED, BACK_LT_CHAN,  _forward_gait_test[i][6]);
+        iot_servo_write_angle(S2_CHAN_SPEED, BACK_LT_CHAN,  _forward_gait_test[i][7]);
+    
+        vTaskDelay(pdMS_TO_TICKS((int)(_forward_gait_test[i][8] * _TRAVEL_SPEED)));//_TRAVEL_SPEED
+    }
+}
+
+void _backward_walk(void) {
     for (int i = 0; i < _GAIT_STEPS; i++) {
         iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _backward_gait[i][0]);
         iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _backward_gait[i][1]);
@@ -57,8 +75,53 @@ void _backward(void) {
     }
 }
 
+void _superman(void) {
+   
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _superman_gait[0]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _superman_gait[1]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_RT_CHAN,  _superman_gait[2]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_RT_CHAN,  _superman_gait[3]);
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_LT_CHAN, _superman_gait[4]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_LT_CHAN, _superman_gait[5]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_LT_CHAN,  _superman_gait[6]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_LT_CHAN,  _superman_gait[7]);
+}
 
-hapa_err_t rotor_init(void){
+void _drone(void) {
+   
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _drone_gait[0]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _drone_gait[1]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_RT_CHAN,  _drone_gait[2]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_RT_CHAN,  _drone_gait[3]);
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_LT_CHAN, _drone_gait[4]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_LT_CHAN, _drone_gait[5]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_LT_CHAN,  _drone_gait[6]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_LT_CHAN,  _drone_gait[7]);
+}
+
+void _crab_up(void){
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _crab_up_gait[0]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _crab_up_gait[1]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_RT_CHAN,  _crab_up_gait[2]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_RT_CHAN,  _crab_up_gait[3]);
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_LT_CHAN, _crab_up_gait[4]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_LT_CHAN, _crab_up_gait[5]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_LT_CHAN,  _crab_up_gait[6]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_LT_CHAN,  _crab_up_gait[7]);
+}
+
+void _crab_down(void){
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_RT_CHAN, _crab_down_gait[0]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_RT_CHAN, _crab_down_gait[1]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_RT_CHAN,  _crab_down_gait[2]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_RT_CHAN,  _crab_down_gait[3]);
+    iot_servo_write_angle(S2_CHAN_SPEED, FRONT_LT_CHAN, _crab_down_gait[4]);
+    iot_servo_write_angle(S1_CHAN_SPEED, FRONT_LT_CHAN, _crab_down_gait[5]);
+    iot_servo_write_angle(S1_CHAN_SPEED, BACK_LT_CHAN,  _crab_down_gait[6]);
+    iot_servo_write_angle(S2_CHAN_SPEED, BACK_LT_CHAN,  _crab_down_gait[7]);
+}
+
+hapa_err_t servo_init(void){
 
     servo_config_t front_rt_s1 = {
         .max_angle = 180,

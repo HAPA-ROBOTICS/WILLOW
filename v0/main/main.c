@@ -20,15 +20,39 @@ void app_main(void)
         printf("Failed to initialize systems\n");
         return;
     }
-    vTaskDelay(pdMS_TO_TICKS(2000)); // Delay to ensure all systems are initialized
+    vTaskDelay(pdMS_TO_TICKS(500));
+    init_beep();
+    
+    vTaskDelay(pdMS_TO_TICKS(1500)); 
 
     
     while (1)
     {
-        _forward();
-        vTaskDelay(pdMS_TO_TICKS(50)); // Delay between movements
+        _drone();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _superman();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _crab_up();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _crab_down();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _crab_up();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _crab_down();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _drone();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        _crab_up();
+        vTaskDelay(pdMS_TO_TICKS(2000));
+
+        for(int i = 0; i < 20; i++){
+            _forward_walk();
+            vTaskDelay(pdMS_TO_TICKS(5));
+        }
+        vTaskDelay(pdMS_TO_TICKS(100));
+
     }
-    
+       
 
     
 }

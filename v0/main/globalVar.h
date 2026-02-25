@@ -44,10 +44,14 @@
 #include <driver/uart.h>
 
 #include "iot_servo.h"
-
+#include <u8g2.h>
+#include "u8g2_esp32_hal.h"
 
 //HAPA SYSTEMS
 #include "hapa_systems.h"
+
+
+
 
 
 #endif // GLOBAL_VAR_H
